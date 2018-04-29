@@ -44,8 +44,9 @@
    dns proxy = no
 
 ##	CUSTOM:
-usershare path = /var/lib/samba/usershare
 name resolve order = wins lmhosts hosts bcast
+usershare path = /var/lib/samba/usershare
+usershare max shares = 100
 usershare owner only = false
 usershare allow guests = yes
 force group = sambashare
@@ -187,11 +188,11 @@ force group = sambashare
 # with the net usershare command.
 
 # Maximum number of usershare. 0 (default) means that usershare is disabled.
-   usershare max shares = 100
+   #usershare max shares = 100 # (Configured in the global session)
 
 # Allow users who've been granted usershare privileges to create
 # public shares, not just authenticated ones
-   usershare allow guests = yes
+   #usershare allow guests = yes # (Configured in the global session)
 
 #======================= Share Definitions =======================
 
