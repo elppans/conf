@@ -1,0 +1,112 @@
+[global]
+#netbios name = none
+server string = %h
+workgroup = GRUPO
+wins support = yes
+name resolve order = wins lmhosts hosts bcast
+;wins server = w.x.y.z
+dns proxy = no
+;interfaces = 127.0.0.0/8 eth0
+;bind interfaces only = yes
+log file = /var/log/samba/log.%m
+max log size = 1000
+#syslog only = no
+syslog = 0
+panic action = /usr/share/samba/panic-action %d
+##server role = standalone server
+passdb backend = tdbsam
+obey pam restrictions = yes
+unix password sync = yes
+passwd program = /usr/bin/passwd %u
+passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+pam password change = yes
+map to guest = bad user
+;logon path = \%N\profiles\%U
+#logon path = \%N\%U\profile
+;logon drive = H:
+#logon home = \%N\%U
+;logon script = logon.cmd
+;add user script = /usr/sbin/adduser --quiet --disabled-password --gecos "" %u
+;add machine script  = /usr/sbin/useradd -g machines -c "%u machine account" -d /var/lib/samba -s /bin/false %u
+;add group script = /usr/sbin/addgroup --force-badname %g
+;include = /home/samba/etc/smb.conf.%m
+;idmap uid = 10000-20000
+;idmap gid = 10000-20000
+;template shell = /bin/bash
+;usershare max shares = 100
+usershare allow guests = yes
+    ntlm auth = yes
+    lanman auth = yes
+    raw NTLMv2 auth = no
+    client NTLMv2 auth = yes
+    client lanman auth = yes
+
+#======================= Share Definitions =======================
+
+[Public]
+path = /Public
+#;comment = No comment
+valid users = zanthus
+write list = zanthus
+read only = no
+available = yes
+browseable = yes
+writable = yes
+guest ok = yes
+public = no
+printable = no
+locking = no
+strict locking = no
+create mode = 0777
+directory mask = 0777
+
+[path_comum]
+path = /Zanthus/Zeus/path_comum
+#;comment = No comment
+valid users = zanthus
+write list = zanthus
+read only = no
+available = yes
+browseable = yes
+writable = yes
+guest ok = yes
+public = no
+printable = no
+locking = no
+strict locking = no
+create mode = 0777
+directory mask = 0777
+
+#[Cadastro]
+#path = /Zanthus/Zeus/path_comum
+#;comment = No comment
+#;valid users = zanthus
+#;write list = zanthus
+#read only = no
+#available = yes
+#browseable = yes
+#writable = yes
+#guest ok = yes
+#public = no
+#printable = no
+#locking = no
+#strict locking = no
+#create mode = 0777
+#directory mask = 0777
+
+[Arquivos]
+path = /usr/local/apache22/htdocs/manager/Arquivos
+#;comment = No comment
+valid users = zanthus
+write list = zanthus
+read only = no
+available = yes
+browseable = yes
+writable = yes
+guest ok = yes
+public = no
+printable = no
+locking = no
+strict locking = no
+create mode = 0777
+directory mask = 0777
