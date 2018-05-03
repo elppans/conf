@@ -33,8 +33,15 @@ map to guest = bad user
 ;idmap uid = 10000-20000
 ;idmap gid = 10000-20000
 ;template shell = /bin/bash
-;usershare max shares = 100
+##	CUSTOM:
+#name resolve order = wins lmhosts hosts bcast#[global]
+usershare path = /var/lib/samba/usershare
+#usershare max shares = 100
+usershare owner only = false
 usershare allow guests = yes
+force group = sambashare
+force create mode = 0070
+force directory mode = 0070
     ntlm auth = yes
     lanman auth = yes
     raw NTLMv2 auth = no
