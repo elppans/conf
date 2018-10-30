@@ -1,0 +1,79 @@
+Mudança TimeZone sistemas Linux
+
+Correção do Time Zone padrão das distros "GMT -2"  para "GMT -3" (Padrão correto para o Brasil/Sao Paulo)
+
+ 
+Instruções:
+
+ 
+
+1) Copie o pacote "MudancaTimeZone.tar.gz" para a pasta /Zanthus/Zeus/path_comum e extraia
+
+2) Entre na pasta /Zanthus/Zeus/path_comum/MudancaTimeZone e edite o arquivo "teste_ip.txt", adicionando TODOS os IP's das distros com o horário errado.
+
+3) Instale o pacote "sshpass":
+
+ 
+
+Se for CentOS, o comando deve ser (Como Super Usuário):
+
+ 
+
+yum -y install sshpass
+
+ 
+
+Se for no Ubuntu:
+
+ 
+
+apt-get -y install sshpass
+
+ 
+
+4) Dê permissão de execução e execute o Script (como Super Usuário):
+
+ 
+
+chmod +x mudar_hora.sh
+
+./mudar_hora.sh
+
+5) OPCIONAL - Se necessário ou de preferência, dá pra usar um servidor de horário local. Para isto, edite o arquivo "mudar_hora.sh" e troque o IP que está na variável "NT" e descomente a linha sshpass com o comando net time.
+
+6) Outros comandos:
+
+Uma vez já configurado a lista de IP no arquivo teste_ip.txt, podemos usar os seguintes comandos:
+
+6.1)
+
+./verificar.sh
+
+Este comando vai dar o comando "date", via ssh em todos os IPs que estão na lista. Com isto dá pra ver se o horário está correto e/ou reparar se um determinado IP comunica ou não.
+
+6.2)
+
+./ssh-keygen_clear.sh
+
+Algumas vezes certo IP não é acessado por causa de "sugeira" de acesso. Este comando vai "limpar" esta sugeira e então pode usar o Script da Zanthus "sem erro de sugeira"
+
+6.3)
+
+exec_00h.sh
+
+Este é um script usado no agendamento da execução.
+
+O pacote deve estar extraído no path_comum e ficar OBRIGATORIAMENTE com o endereço fixo em "/Zanthus/Zeus/path_comum/MudancaTimeZone".
+
+Para agendar deve colocar no arquivo "/etc/crontab" o seguinte conteúdo (quebrando a linha após, senão não funciona):
+
+00 0    * * *   root /Zanthus/Zeus/path_comum/MudancaTimeZone/exec_00h.sh
+
+Onde a primeira coluna é o MINUTO e a segunda coluna é a HORA:
+
+00 = MIN (00 até 59)
+0 = HORA (0 até 23)
+
+7) mudar_hora_lo.sh
+
+Este é para ser executado apenas no sistema local. Para caso apenas este sistema esteja com o horário errado e então não precisamos editar a lista de IP só pra corrigir 1 (UM) sistema. É "raro" precisar deste, no entanto.
