@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=VLC Custom
+GenericName=Reprodutor de Mídias (Custom)
+Comment=Reproduza suas multimídias
+Exec=vlc
+Icon=/usr/share/icons/hicolor/256x256/apps/vlc.png
+Terminal=false
+Type=Application
+Categories=AudioVideo;Player;Recorder;
