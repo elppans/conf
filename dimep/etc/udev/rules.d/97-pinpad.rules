@@ -1,0 +1,16 @@
+# PINPAD IGENICO IPP320
+ACTION=="add", ATTRS{idProduct}=="0028", ATTRS{idVendor}=="079b", SYMLINK+="ttyPIN"
+ACTION=="remove", ATTRS{idProduct}=="0028", ATTRS{idVendor}=="079b", SYMLINK-="ttyPIN"
+
+# PINPAD GERTEC PPC900
+ACTION=="add", ATTRS{idProduct}=="c901", ATTRS{idVendor}=="1753", SYMLINK+="ttyPIN"
+ACTION=="remove", ATTRS{idProduct}=="c901", ATTRS{idVendor}=="1753", SYMLINK-="ttyPIN"
+
+# PINPAD GERTEC PPC920
+ACTION=="add", ATTRS{idProduct}=="c902", ATTRS{idVendor}=="1753", SYMLINK+="ttyPIN"
+ACTION=="remove", ATTRS{idProduct}=="c902", ATTRS{idVendor}=="1753", SYMLINK-="ttyPIN"
+
+# PINPAD VERIFONE VX820
+ACTION=="add", ATTRS{idProduct}=="0219", ATTRS{idVendor}=="11ca", SYMLINK+="ttyPIN"
+ACTION=="remove", ATTRS{idProduct}=="0219", ATTRS{idVendor}=="11ca", SYMLINK-="ttyPIN"
+

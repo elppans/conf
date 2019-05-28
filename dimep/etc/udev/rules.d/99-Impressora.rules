@@ -1,0 +1,27 @@
+# SCRIPT MODELO
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0b1b", ATTRS{idProduct}=="0105", SYMLINK+="ttyBS1"
+#SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0b1b", ATTRS{idProduct}=="0105", SYMLINK-="ttyBS1"
+
+# MP-4200 TH FI - BEMATECH
+SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0b1b", ATTRS{idProduct}=="0003", SYMLINK+="ttyS5"
+SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0b1b", ATTRS{idProduct}=="0003", SYMLINK-="ttyS5"
+
+# DR700 D-Printer DARUMA
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="0403", SYMLINK+="ttyDS1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="0403", SYMLINK-="ttyDS1", OWNER="lp", GROUP="lp", MODE="0666"
+
+# DR800 D-Printer DARUMA
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="23b8", SYMLINK+="ttyDS2", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="23b8", SYMLINK-="ttyDS2", OWNER="lp", GROUP="lp", MODE="0666"
+
+# EPSON Epson TMT-88 / TH-6000 / ELGIN
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="04b8", SYMLINK+="ttyES1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="04b8", SYMLINK-="ttyES1", OWNER="lp", GROUP="lp", MODE="0666"
+
+# SWEDA SL300-S
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="1c8a", SYMLINK+="ttySS1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="1c8a", SYMLINK-="ttySS1", OWNER="lp", GROUP="lp", MODE="0666"
+
+# TOSHIBA
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK+="ttyTS1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK-="ttyTS1", OWNER="lp", GROUP="lp", MODE="0666"

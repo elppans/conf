@@ -1,0 +1,16 @@
+# SAT LINK ttySAT
+SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0525", SYMLINK+="ttySAT" 
+SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0525", SYMLINK-="ttySAT"
+
+# LINK ttyS0
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0525", SYMLINK+="ttyS0" 
+#SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0525", SYMLINK-="ttyS0"
+
+# SAT GERTEC
+SUBSYSTEM=="tty", ACTION=="add" ATTRS{idProduct}=="0a01", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK+="ttySAT"
+SUBSYSTEM=="tty", ACTION=="remove" ATTRS{idProduct}=="0a01", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK-="ttySAT"
+
+# EPSON
+SUBSYSTEM=="tty", ACTION=="add" ATTRS{idProduct}=="0a03", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK+="ttySAT"
+SUBSYSTEM=="tty", ACTION=="remove" ATTRS{idProduct}=="0a03", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK-="ttySAT"
+

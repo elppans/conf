@@ -1,0 +1,11 @@
+# SAT (Padrão DIMEP, ELGIN, TANCA)
+SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0525", NAME+="ttyACM0" 
+SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0525", SYMLINK-="ttyACM0"
+
+# SAT GERTEC
+SUBSYSTEM=="tty", ACTION=="add" ATTRS{idProduct}=="0a01", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK+="ttySGT0"
+SUBSYSTEM=="tty", ACTION=="remove" ATTRS{idProduct}=="0a01", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK-="ttySGT0"
+
+# EPSON
+SUBSYSTEM=="tty", ACTION=="add" ATTRS{idProduct}=="0a03", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK+="ttySEP0"
+SUBSYSTEM=="tty", ACTION=="remove" ATTRS{idProduct}=="0a03", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK-="ttySEP0"

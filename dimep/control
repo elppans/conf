@@ -1,0 +1,13 @@
+Package: dimep-dm
+Version: 1.3.0
+License: ISC
+Vendor: Miguel Xavier <miguel.xavier@etechped.com.br>
+Architecture: amd64
+Maintainer: Miguel Xavier <miguel.xavier@etechped.com.br>
+Installed-Size: 193135
+Depends: gconf2, gconf-service, libnotify4, libappindicator1, libxtst6, libnss3, libxss1
+Section: default
+Priority: extra
+Homepage: http://www.dimep.com.br
+Description: 
+  Assistente de configuração e monitoração de dispositivos de hardware Dimep

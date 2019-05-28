@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Link to the binary
+ln -sf '/opt/Dimep Device Manager/dimep-dm' '/usr/local/bin/dimep-dm'
+
+mkdir -p /etc/taxgo/
+cp '/opt/Dimep Device Manager/monitorasat.xml' /etc/taxgo/
