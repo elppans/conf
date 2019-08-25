@@ -3,7 +3,7 @@
 server string = %h
 workgroup = GRUPO
 wins support = yes
-name resolve order = wins lmhosts hosts bcast
+name resolve order = wins lmhosts host bcast
 ;wins server = w.x.y.z
 dns proxy = no
 ;interfaces = 127.0.0.0/8 eth0
