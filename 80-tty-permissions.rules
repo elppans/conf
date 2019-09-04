@@ -1,0 +1,3 @@
+KERNEL=="ttyACM[0-9]*",MODE="0777"
+KERNEL=="ttyUSB[0-9]*",MODE="0777"
+KERNEL=="ttyS[0-9]*",MODE="0777"

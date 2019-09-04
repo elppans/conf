@@ -1,0 +1,88 @@
+##	PINPAD
+
+# PINPAD IGENICO IPP320 = 079b:0028
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="079b", ATTRS{idProduct}=="0028", NAME+="ttyACM2"
+ACTION=="add", ATTRS{idProduct}=="0028", ATTRS{idVendor}=="079b", SYMLINK+="ttyPIN"
+ACTION=="remove", ATTRS{idProduct}=="0028", ATTRS{idVendor}=="079b", SYMLINK-="ttyPIN"
+
+# PINPAD GERTEC PPC900 = 1753:c901
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", ATTRS{idProduct}=="c901", NAME+="ttyACM2"
+ACTION=="add", ATTRS{idProduct}=="c901", ATTRS{idVendor}=="1753", SYMLINK+="ttyPIN"
+ACTION=="remove", ATTRS{idProduct}=="c901", ATTRS{idVendor}=="1753", SYMLINK-="ttyPIN"
+
+# PINPAD GERTEC PPC920 = 1753:c902
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", ATTRS{idProduct}=="c902", NAME+="ttyACM2"
+ACTION=="add", ATTRS{idProduct}=="c902", ATTRS{idVendor}=="1753", SYMLINK+="ttyPIN"
+ACTION=="remove", ATTRS{idProduct}=="c902", ATTRS{idVendor}=="1753", SYMLINK-="ttyPIN"
+
+# PINPAD VERIFONE VX820 = 11ca:0219
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="11ca", ATTRS{idProduct}=="0219", NAME+="ttyACM2"
+ACTION=="add", ATTRS{idProduct}=="0219", ATTRS{idVendor}=="11ca", SYMLINK+="ttyPIN"
+ACTION=="remove", ATTRS{idProduct}=="0219", ATTRS{idVendor}=="11ca", SYMLINK-="ttyPIN"
+
+##	APARELHOS SAT
+
+# SAT (Padrão DIMEP, ELGIN, TANCA) =  0525:a4a7
+SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0525", NAME+="ttyACM0" 
+SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0525", SYMLINK-="ttyACM0"
+
+# SAT GERTEC = 1753:0a01
+SUBSYSTEM=="tty", ACTION=="add" ATTRS{idProduct}=="0a01", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK+="ttySGT0"
+SUBSYSTEM=="tty", ACTION=="remove" ATTRS{idProduct}=="0a01", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK-="ttySGT0"
+
+# EPSON = 1753:0a03
+SUBSYSTEM=="tty", ACTION=="add" ATTRS{idProduct}=="0a03", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK+="ttySEP0"
+SUBSYSTEM=="tty", ACTION=="remove" ATTRS{idProduct}=="0a03", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK-="ttySEP0"
+
+##	IMPRESSORAS
+
+# SCRIPT MODELO = 0105:0b1b
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0b1b", ATTRS{idProduct}=="0105", SYMLINK+="ttyBS1"
+#SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0b1b", ATTRS{idProduct}=="0105", SYMLINK-="ttyBS1"
+
+# MP-4200 TH FI - BEMATECH = 0003:0b1b
+SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0b1b", ATTRS{idProduct}=="0003", SYMLINK+="ttyS5"
+SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0b1b", ATTRS{idProduct}=="0003", SYMLINK-="ttyS5"
+
+# DR700 D-Printer DARUMA = ?:0403
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="0403", SYMLINK+="ttyDS1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="0403", SYMLINK-="ttyDS1", OWNER="lp", GROUP="lp", MODE="0666"
+
+# DR800 D-Printer DARUMA = ?:23b8
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="23b8", SYMLINK+="ttyDS2", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="23b8", SYMLINK-="ttyDS2", OWNER="lp", GROUP="lp", MODE="0666"
+
+# EPSON Epson TMT-88 / TH-6000 / ELGIN = ?:04b8
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="04b8", SYMLINK+="ttyES1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="04b8", SYMLINK-="ttyES1", OWNER="lp", GROUP="lp", MODE="0666"
+
+# SWEDA SL300-S = ?:1c8a
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1c8a", ATTRS{idProduct}=="3a17", NAME+="ttyACM0"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="1c8a", SYMLINK+="ttySS1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="1c8a", SYMLINK-="ttySS1", OWNER="lp", GROUP="lp", MODE="0666"
+
+# TOSHIBA = 2303:067b
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK+="ttyTS1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK-="ttyTS1", OWNER="lp", GROUP="lp", MODE="0666"
+
+# ELGIN I9 =  20d1:7008
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="7008", ATTRS{idProduct}=="20d1", SYMLINK+="ttyEL1", OWNER="lp", GROUP="lp", MODE="0666"
+KERNEL=="*[0-9]", SUBSYSTEM=="usb", ACTION=="remove", ATTRS{idVendor}=="7008", ATTRS{idProduct}=="20d1", SYMLINK-="ttyEL1", OWNER="lp", GROUP="lp", MODE="0666"
+
+##	LINK GERAL
+
+# SAT LINK ttySAT
+SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0525", SYMLINK+="ttySAT" 
+SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="0525", SYMLINK-="ttySAT"
+
+# SAT GERTEC
+SUBSYSTEM=="tty", ACTION=="add" ATTRS{idProduct}=="0a01", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK+="ttySAT"
+SUBSYSTEM=="tty", ACTION=="remove" ATTRS{idProduct}=="0a01", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK-="ttySAT"
+
+# EPSON
+SUBSYSTEM=="tty", ACTION=="add" ATTRS{idProduct}=="0a03", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK+="ttySAT"
+SUBSYSTEM=="tty", ACTION=="remove" ATTRS{idProduct}=="0a03", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="1753", SYMLINK-="ttySAT"
+
+# LINK ttyS0
+#SUBSYSTEM=="tty", ACTION=="add", KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0525", SYMLINK+="ttyS0" 
+#SUBSYSTEM=="tty", ACTION=="remove", KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0525", SYMLINK-="ttyS0"
