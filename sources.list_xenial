@@ -1,0 +1,8 @@
+deb http://security.ubuntu.com/ubuntu xenial-security main multiverse restricted universe
+deb http://security.ubuntu.com/ubuntu xenial-proposed main multiverse restricted universe
+deb http://security.ubuntu.com/ubuntu xenial-backports main multiverse restricted universe
+deb http://security.ubuntu.com/ubuntu xenial-updates main multiverse restricted universe
+deb http://cz.archive.ubuntu.com/ubuntu xenial main multiverse restricted universe
+
+# apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 40976EAF437D05B5
+# apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 3B4FE6ACC0B21F32
