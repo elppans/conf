@@ -1,0 +1,166 @@
+Instalação e configuração do Leitor Digital Hamster DX no PDV
+
+Leitor Digital: Nitgen, Fingertech, modelo Hamster DX
+
+Bus 001 Device 007: ID 0a86:0100 NITGen Co., Ltd
+  idVendor           0x0a86 NITGen Co., Ltd
+  idProduct          0x0100
+  bcdDevice           41.00
+  iManufacturer           1 NITGEN USB DEVICE
+  iProduct                2 NITGEN FDU06
+
+##
+
+01) Manual Biometria no Manager:
+
+http://docs.zanthusonline.com.br/documentacao/gccf0057-roteiro-parametrizacao-leitura-biometrica-2/
+
+01.01) Parametrização Manager:
+
+Administração > Valores de Parâmetros > 67 – PERIFÉRICOS = OK
+Opções Biometria: [selecione a (s) opção (ões) desejadas]
+Dedos a coletar: [selecione a (s) opção (ões) desejadas]
+
+Administração > Valores de Parâmetros > 36 – Funcionário = OK
+Proc control acesso: selecione as opções:
+1-Nas funções executadas no PDV
+4-Exibe nome do perfil ao solicitar senha
+
+Administração > Valores de Parâmetros > 46 – Interface com Usuário = OK
+Pop-up autorização: [selecione a opção “1-Ativa exibição”]
+
+Administração > Controle de Acesso > Usuários
+Cadastro de Usuários
+Ativa Captura de Digital: [marque o flag para os usuários que utilizarão esse novo processo de liberações via biometria]
+Os usuários com a flag desmarcada continuarão a utilizar a senha digitada.
+
+01.02) Parametrização PDV:
+
+Criar os arquivos:
+
+RESTG1301.CFG
+RESTG0000.CFG
+
+Com o conteúdo:
+
+endereco=[IP]:[PORTA]
+path=/manager/restfull/pdv/comunicacao_pdv.php5
+_flags=1
+timeout=30
+opcoes=63
+
+01.03)
+
+12950 – Altera tipo de SDK do leitor biométrico 3 - HamsterDX
+12901 – Ativa leitor biométrico
+12977 – Teste do leitor biométrico
+12910 – Cadastra biometria de funcionários
+12902 – Desativa leitor biométrico
+
+##
+
+02) Instalação do Driver do Leitor Biométrico, Ubuntu 16.04, PDV 2.X
+
+apt-get update
+apt-get clean ; apt-get autoclean ; apt-get -y install build-essential
+mkdir -p /opt/nitgen ; cd /opt/nitgen
+wget -c ftp://ftp.zanthus.com.br:2142/pub/Zeus_Frente_de_Loja/_Complementares/Biometria/FingerTech/HamsterDX/eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22.tgz
+wget -c ftp://ftp.zanthus.com.br:2142/pub/Zeus_Frente_de_Loja/_Complementares/Biometria/FingerTech/HamsterDX/eNBSP_SDK_Linux_v1.851.tgz
+tar -zxvf eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22.tgz
+tar -zxvf eNBSP_SDK_Linux_v1.851.tgz
+#cd eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22
+#cd VenusDrv-v1.0.4-5.1-Ubuntu11.04~Ubuntu18.04-32bit
+cd eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22/VenusDrv-v1.0.4-5.1-Ubuntu11.04~Ubuntu18.04-32bit
+bash install.sh
+
+cp -rfv build-ubuntu14.04-x86_32bit/VenusLib.so /Zanthus/Zeus/lib
+cd /opt/nitgen
+#cd eNBSP_SDK_Linux_v1.851/
+#cp -rfv eNBSP_SDK_v1.851_x86/eNBSP-1.8.5-1/eNBSP-1.8.5-1/eNBSP/bin/libNBioBSP.so /Zanthus/Zeus/lib
+cp -rfv eNBSP_SDK_Linux_v1.851/eNBSP_SDK_v1.851_x86/eNBSP-1.8.5-1/eNBSP-1.8.5-1/eNBSP/bin/libNBioBSP.so /Zanthus/Zeus/lib ; ldconfig
+
+02.01) Opcionalmente pode fazer o download das bibliotecas "VenusLib.so e libNBioBSP.so" do github diretamente:
+
+cd /Zanthus/Zeus/lib
+wget -c https://github.com/elppans/conf/raw/master/leitor_digital/FingerTech/HamsterDX/VenusLib.so
+wget -c https://github.com/elppans/conf/raw/master/leitor_digital/FingerTech/HamsterDX/libNBioBSP.so
+ldconfig
+
+02.02) Também adicionei o pacote do driver no gitghub, para caso removam do ftp:
+
+https://github.com/elppans/conf/raw/master/leitor_digital/FingerTech/HamsterDX/eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22.tgz
+
+##
+
+03) Instalação do Driver do Leitor Biométrico, Ubuntu 12.04, PDV RC26/28
+
+# Desabilitar IPV6 no APT
+echo -e 'Acquire::ForceIPv4 “true”;' | tee -a /etc/apt/apt.conf.d/99force-ipv4  >> /dev/null
+
+# Desabilitar IPV6 no Sistema (Opcional):
+
+echo -e '
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+' | tee /etc/sysctl.d/99-sysctl.conf >> /dev/null
+
+sysctl -p
+
+# Desabilitar IPV6 no Sistema Temporariamente:
+
+echo '1' > /proc/sys/net/ipv6/conf/all/disable_ipv6
+
+# Reconfigurar a lista de repositório:
+
+cp -fv /etc/apt/sources.list /etc/apt/sources.list.old
+rm -rf /etc/apt/sources.list.d/*
+echo -e '
+deb http://old-releases.ubuntu.com/ubuntu precise main universe restricted multiverse
+deb http://old-releases.ubuntu.com/ubuntu precise-updates main universe restricted multiverse
+deb http://old-releases.ubuntu.com/ubuntu precise-security main universe restricted multiverse
+deb http://old-releases.ubuntu.com/ubuntu precise-proposed main universe restricted multiverse
+deb http://old-releases.ubuntu.com/ubuntu precise-backports main universe restricted multiverse
+' | tee /etc/apt/sources.list >> /dev/null
+
+#sed -i "/erlang/s/deb/#deb/g" /etc/apt/sources.list
+#sed -i "/extras/s/deb/#deb/g" /etc/apt/sources.list
+#sed -i "/archive.canonical/s/deb/#deb/g" /etc/apt/sources.list
+#sed -i "s/deb-src/#deb-src/g" /etc/apt/sources.list
+#sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+#echo -e "deb http://old-releases.ubuntu.com/ubuntu $(lsb_release -c | awk '{print $2}')-security main universe restricted multiverse" | tee -a /etc/apt/sources.list >> /dev/null
+
+apt-get update
+
+03.01) Para instalar o driver, basta seguir o ítem "02".
+
+##
+
+04) Seguir o manual "gccf0057-roteiro-parametrizacao-leitura-biometrica-2/#parametrizacao-pdv"
+
+Seguir Funções ;
+Leitor tipo 3 ;
+
+Sobre a falha:
+
+25956 - Falha Ao Pegar Template:
+Ocorre quando demora para usar o leitor
+
+25917 - Erro Desconhecido 2 = ?
+25923 - Falhou
+
+##
+
+05) As 2 bibliotecas que adicionei no meu repositório do GitHub (ítem 02) foram tiradas dos arquivos:
+
+05.01) eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22.tgz:
+
+ftp://ftp.zanthus.com.br:2142/pub/Zeus_Frente_de_Loja/_Complementares/Biometria/FingerTech/HamsterDX/eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22.tgz
+
+.....\bimetria\FingerTech\HamsterDX\eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22\eNBioBSP_Driver_Linux_HamsterDX_v1.0.4-5.1_2018.08.22\VenusDrv-v1.0.4-5.1-Ubuntu11.04~Ubuntu18.04-32bit\build-ubuntu14.04-x86_32bit/VenusLib.so
+
+05.02) eNBSP_SDK_Linux_v1.851.tgz:
+
+ftp://ftp.zanthus.com.br:2142/pub/Zeus_Frente_de_Loja/_Complementares/Biometria/FingerTech/HamsterDX/eNBSP_SDK_Linux_v1.851.tgz
+
+......\bimetria\FingerTech\HamsterDX\eNBSP_SDK_Linux_v1.851\eNBSP_SDK_Linux_v1.851\eNBSP_SDK_v1.851_x86\eNBSP-1.8.5-1\eNBSP-1.8.5-1\eNBSP\bin\libNBioBSP.so

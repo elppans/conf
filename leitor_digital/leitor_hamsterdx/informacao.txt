@@ -1,0 +1,13 @@
+PDV 2.0:
+
+tar -zxf leitor_hamsterdx_pdv2.0.tgz -C /
+
+PDV RC26/28 (Versao com Kernel 4.1.6-040106-generic):
+
+tar -zxf leitor_hamsterdx_pdvRC2X.tgz -C /
+
+Source:
+
+tar -zxvf leitor_hamsterdx_src.tgz
+cd leitor_hamsterdx_src
+./instalar.sh
