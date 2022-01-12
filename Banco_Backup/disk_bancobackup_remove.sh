@@ -11,11 +11,11 @@ PASTA='/mnt/Backup_Zanthus'
 
 if mount | grep -e "$PASTA" >> /dev/null ; then
         #echo -e "$PASTA"
-	ZeusBD --remove-backup -d "$DIAS" -D "$PASTA" | tee /tmp/disk_vovobackup_remove.log
+	ZeusBD --remove-backup -d "$DIAS" -D "$PASTA" | tee /tmp/"$0".log
 	BKP=`date +%Y%m%d_%H%M%S`
-	echo -e "$BKP" | tee -a /tmp/disk_vovobackup_remove.log
+	echo -e "$BKP" | tee -a /tmp/"$0".log
   else
 	BKP=`date +%Y%m%d_%H%M%S`
-	echo -e "Não foi possível Executar limpesa - $BKP" | tee /tmp/disk_vovobackup_remove.log
+	echo -e "Não foi possível Executar limpesa - $BKP" | tee /tmp/"$0".log
 fi
 
