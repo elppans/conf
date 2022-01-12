@@ -11,7 +11,7 @@ DEVUSB=`file /dev/disk/by-path/* | grep -v "broken symbolic link" | grep usb | a
 
 PARTUSB=`fdisk -l /dev/"$DEVUSB"  | grep -v 'Disk' | grep "$DEVUSB" | awk '{print $1}'`
 
-PASTA='/mnt/BANCOBACKUP'
+PASTA='/mnt/Backup_Zanthus'
 
 #echo -e "
 #DEVUSB: "$DEVUSB"
