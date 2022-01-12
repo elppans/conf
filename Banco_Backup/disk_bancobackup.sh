@@ -12,8 +12,8 @@ if mount | grep -e "$PASTA" >> /dev/null ; then
         #echo -e "$PASTA"
         ZeusBD -bkp -bdir "$PASTA"
         BKP=`date +%Y%m%d_%H%M%S`
-        echo -e "Backup OK - $BKP" | tee /tmp/disk_vovobackup.log
+        echo -e "Backup OK - $BKP" | tee /tmp/"$0".log
   else
         BKP=`date +%Y%m%d_%H%M%S`
-        echo -e "Não foi possível fazer o Backup - $BKP" | tee -a /tmp/disk_vovobackup.log
+        echo -e "Não foi possível fazer o Backup - $BKP" | tee -a /tmp/"$0".log
 fi
