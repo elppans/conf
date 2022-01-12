@@ -31,6 +31,6 @@ if  mount | grep "$PARTUSB"| grep "$PASTA" >> /dev/null ; then
  else
         #echo  -e ""$PARTUSB" "$PASTA""
         BKP=`date +%Y%m%d_%H%M%S`
-        echo "Não foi possível montar o dispositivo "$PARTUSB"! - "$BKP"" | tee /tmp/disk_usb.log
+        echo "Não foi possível montar o dispositivo "$PARTUSB"! - "$BKP"" | tee /tmp/"$0".log
 fi
 fi
