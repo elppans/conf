@@ -1,4 +1,5 @@
 #!/bin/bash
+CMD="$(basename "$0")"
 
 ## Copiar comando para /usr/bin e dar perissão de execução
 ## Adicionar em /etc/crontab:
@@ -36,7 +37,7 @@ if  mount | grep "$IP"| grep "$PASTA" >> /dev/null ; then
  else
         #echo  -e ""$PARTUSB" "$PASTA""
         BKP=`date +%Y%m%d_%H%M%S`
-        echo "Não foi possível montar o compartilhamento "$COMPARTILHAMENTO"! - "$BKP"" | tee /tmp/"$0".log
+        echo "Não foi possível montar o compartilhamento "$COMPARTILHAMENTO"! - "$BKP"" | tee /tmp/"$CMD"_err.log
 fi
 fi
 # MOUNT IP COMPARTILHAMENTO PASTA
@@ -57,7 +58,7 @@ if  mount | grep "$IP"| grep "$PASTA" >> /dev/null ; then
  else
         #echo  -e ""$PARTUSB" "$PASTA""
         BKP=`date +%Y%m%d_%H%M%S`
-        echo "Não foi possível montar o compartilhamento "$COMPARTILHAMENTO"! - "$BKP"" | tee /tmp/"$0".log
+        echo "Não foi possível montar o compartilhamento "$COMPARTILHAMENTO"! - "$BKP"" | tee /tmp/"$CMD"_err.log
 fi
 fi
 # MOUNT IP COMPARTILHAMENTO PASTA
