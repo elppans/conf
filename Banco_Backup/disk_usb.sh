@@ -1,4 +1,5 @@
 #!/bin/bash
+CMD="$(basename "$0")"
 
 ## Copiar comando para /usr/bin e dar perissão de execução
 ## Adicionar em /etc/crontab:
@@ -31,6 +32,6 @@ if  mount | grep "$PARTUSB"| grep "$PASTA" >> /dev/null ; then
  else
         #echo  -e ""$PARTUSB" "$PASTA""
         BKP=`date +%Y%m%d_%H%M%S`
-        echo "Não foi possível montar o dispositivo "$PARTUSB"! - "$BKP"" | tee /tmp/"$0".log
+        echo "Não foi possível montar o dispositivo "$PARTUSB"! - "$BKP"" | tee /tmp/"$CMD"_err.log
 fi
 fi
