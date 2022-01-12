@@ -1,4 +1,5 @@
 #!/bin/bash
+CMD="$(basename "$0")"
 
 ## Copiar comando para /usr/bin e dar perissão de execução
 ## Adicionar em /etc/crontab:
@@ -11,11 +12,11 @@ PASTA='/mnt/Backup_Zanthus'
 
 if mount | grep -e "$PASTA" >> /dev/null ; then
         #echo -e "$PASTA"
-	ZeusBD --remove-backup -d "$DIAS" -D "$PASTA" | tee /tmp/"$0".log
+	ZeusBD --remove-backup -d "$DIAS" -D "$PASTA" | tee /tmp/"$CMD".log
 	BKP=`date +%Y%m%d_%H%M%S`
 	echo -e "$BKP" | tee -a /tmp/"$0".log
   else
 	BKP=`date +%Y%m%d_%H%M%S`
-	echo -e "Não foi possível Executar limpesa - $BKP" | tee /tmp/"$0".log
+	echo -e "Não foi possível Executar limpesa - $BKP" | tee /tmp/"$CMD"_err.log
 fi
 
