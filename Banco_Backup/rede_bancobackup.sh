@@ -36,7 +36,7 @@ if  mount | grep "$IP"| grep "$PASTA" >> /dev/null ; then
  else
         #echo  -e ""$PARTUSB" "$PASTA""
         BKP=`date +%Y%m%d_%H%M%S`
-        echo "Não foi possível montar o compartilhamento "$COMPARTILHAMENTO"! - "$BKP"" | tee /tmp/disk_usb.log
+        echo "Não foi possível montar o compartilhamento "$COMPARTILHAMENTO"! - "$BKP"" | tee /tmp/"$0".log
 fi
 fi
 # MOUNT IP COMPARTILHAMENTO PASTA
@@ -57,7 +57,7 @@ if  mount | grep "$IP"| grep "$PASTA" >> /dev/null ; then
  else
         #echo  -e ""$PARTUSB" "$PASTA""
         BKP=`date +%Y%m%d_%H%M%S`
-        echo "Não foi possível montar o compartilhamento "$COMPARTILHAMENTO"! - "$BKP"" | tee /tmp/disk_usb.log
+        echo "Não foi possível montar o compartilhamento "$COMPARTILHAMENTO"! - "$BKP"" | tee /tmp/"$0".log
 fi
 fi
 # MOUNT IP COMPARTILHAMENTO PASTA
