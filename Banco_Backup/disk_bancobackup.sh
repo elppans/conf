@@ -1,4 +1,5 @@
 #!/bin/bash
+CMD="$(basename "$0")"
 
 ## Copiar comando para /usr/bin e dar perissão de execução
 ## Adicionar em /etc/crontab:
@@ -12,8 +13,8 @@ if mount | grep -e "$PASTA" >> /dev/null ; then
         #echo -e "$PASTA"
         ZeusBD -bkp -bdir "$PASTA"
         BKP=`date +%Y%m%d_%H%M%S`
-        echo -e "Backup OK - $BKP" | tee /tmp/"$0".log
+        echo -e "Backup OK - $BKP" | tee /tmp/"$CMD".log
   else
         BKP=`date +%Y%m%d_%H%M%S`
-        echo -e "Não foi possível fazer o Backup - $BKP" | tee -a /tmp/"$0".log
+        echo -e "Não foi possível fazer o Backup - $BKP" | tee -a /tmp/"$CMD"_err.log
 fi
