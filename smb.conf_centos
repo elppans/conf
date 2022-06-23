@@ -1,7 +1,7 @@
 #   SELINUX:
 # Configurar como modo permissivo:
 #
-# sed -e '/SELINUX/s/enforcing/permissive/' /etc/selinux/config && setenforce 0
+# sed -i '/SELINUX/s/enforcing/permissive/' /etc/selinux/config && setenforce 0
 
 [global]
 #netbios name = none
