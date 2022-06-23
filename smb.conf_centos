@@ -1,3 +1,8 @@
+#   SELINUX:
+# Configurar como modo permissivo:
+#
+# sed -e '/SELINUX/s/enforcing/permissive/' /etc/selinux/config && setenforce 0
+
 [global]
 #netbios name = none
 server string = %h
@@ -50,22 +55,22 @@ force directory mode = 0070
 
 #======================= Share Definitions =======================
 
-[Public]
-path = /Public
+#[Public]
+#path = /Public
 #;comment = No comment
-valid users = zanthus
-write list = zanthus
-read only = no
-available = yes
-browseable = yes
-writable = yes
-guest ok = yes
-public = no
-printable = no
-locking = no
-strict locking = no
-create mode = 0777
-directory mask = 0777
+#valid users = zanthus
+#write list = zanthus
+#read only = no
+#available = yes
+#browseable = yes
+#writable = yes
+#guest ok = yes
+#public = no
+#printable = no
+#locking = no
+#strict locking = no
+#create mode = 0777
+#directory mask = 0777
 
 [path_comum]
 path = /Zanthus/Zeus/path_comum
@@ -84,22 +89,22 @@ strict locking = no
 create mode = 0777
 directory mask = 0777
 
-#[Cadastro]
-#path = /Zanthus/Zeus/path_comum
+[Cadastro]
+path = /Zanthus/Zeus/path_comum
 #;comment = No comment
-#;valid users = zanthus
-#;write list = zanthus
-#read only = no
-#available = yes
-#browseable = yes
-#writable = yes
-#guest ok = yes
-#public = no
-#printable = no
-#locking = no
-#strict locking = no
-#create mode = 0777
-#directory mask = 0777
+valid users = zanthus
+write list = zanthus
+read only = no
+available = yes
+browseable = yes
+writable = yes
+guest ok = yes
+public = no
+printable = no
+locking = no
+strict locking = no
+create mode = 0777
+directory mask = 0777
 
 [Arquivos]
 path = /usr/local/apache22/htdocs/manager/Arquivos
@@ -117,3 +122,35 @@ locking = no
 strict locking = no
 create mode = 0777
 directory mask = 0777
+
+[Logs]
+        comment = Logs
+        path = /usr/local/apache22/htdocs/manager/Logs
+        public = yes
+        browsable =yes
+        writable = yes
+        guest ok = yes
+        read only = no
+        ;guest user = zanthus
+
+[Arquivos]
+        comment = Arquivos
+        path = /usr/local/apache22/htdocs/manager/Arquivos
+        public = yes
+        browsable = yes
+        writable = yes
+        guest ok = yes
+        read only = no
+        ;guest user = zanthus
+
+[arquivotxt]
+        comment = arquivotxt
+        path = /usr/local/apache22/htdocs/manager/arquivotxt
+        public = yes
+        browsable = yes
+        writable = yes
+        guest ok = yes
+        read only = no
+        ;guest user = zanthus
+
+
