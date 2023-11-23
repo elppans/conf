@@ -1,0 +1,56 @@
+[global]
+   workgroup = WORKGROUP
+   dns proxy = no
+   log file = /var/log/samba/%m.log
+   max log size = 1000
+   client min protocol = SMB2
+   client max protocol = SMB3_11
+   ;ntlm auth = yes
+   server role = standalone server
+   passdb backend = tdbsam
+   obey pam restrictions = yes
+   unix password sync = yes
+   passwd program = /usr/bin/passwd %u
+   passwd chat = *New*UNIX*password* %n\n *ReType*new*UNIX*password* %n\n *passwd:*all*authentication*tokens*updated*successfully*
+   pam password change = yes
+   map to guest = Bad Password
+   usershare allow guests = yes
+   name resolve order = lmhosts bcast host wins
+   security = user
+   guest account = nobody
+   usershare path = /var/lib/samba/usershare
+   usershare max shares = 100
+   usershare owner only = yes
+   ;inherit owner = unix only ; Inherit ownership of the parent directory for new files and directories
+   ;inherit permissions = yes ; Inherit permissions of the parent directory for new files and directories
+   force create mode = 0070
+   force directory mode = 0070
+   force group = +sambashare
+
+#======================= Share Definitions =======================
+
+
+[Arquivos]
+comment = Arquivos
+path = /opt/demonstracao/disco_compartilhado
+public = no
+browseable = yes
+writable = yes
+guest ok = yes
+read only = no
+;valid users = zanthus
+;available = yes
+;printable = no
+;locking = no
+;strict locking = no
+;create mode = 0777
+;directory mask = 0777
+
+[Logs]
+comment = Logs
+path = /opt/demonstracao/manager_logs
+public = no
+browseable = yes
+writable = yes
+guest ok = yes
+read only = no
