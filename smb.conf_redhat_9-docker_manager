@@ -45,6 +45,7 @@ read only = no
 ;strict locking = no
 ;create mode = 0777
 ;directory mask = 0777
+#;crontab: 10 *    * * *   root    chmod -R 777 /opt/demonstracao/disco_compartilhado
 
 [Logs]
 comment = Logs
