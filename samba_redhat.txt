@@ -1,0 +1,143 @@
+# Configuração do SAMBA no Red Hat 9:
+# Loja: Bauducco
+# Fonte:
+# https://www.linuxtechi.com/install-configure-samba-centos-8/
+
+sudo yum updateinfo
+sudo yum -y install samba
+
+sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.backup_"$(date +%y%m%d)"
+
+echo -e '[global]
+workgroup = WORKGROUP
+server string = Samba Server %v
+netbios name = redhat-9
+security = user
+map to guest = bad user
+dns proxy = no
+' | sudo tee /etc/samba/smb.conf
+
+# Diretório para "anonimo":
+
+#sudo mkdir -p /srv/samba/shared
+#sudo chmod -R 0755 /srv/samba/shared
+#sudo chown -R nobody:nobody /srv/samba/shared
+#sudo chcon -t samba_share_t /srv/samba/shared
+
+# smb.conf Anonimo:
+
+#echo -e '[Anonymous]
+#path = /srv/samba/shared
+#browsable =yes
+#writable = yes
+#guest ok = yes
+#read only = no
+#' | sudo tee -a /etc/samba/smb.conf
+
+# Usuário seguro:
+
+#sudo groupadd secure_group
+#sudo useradd -g secure_group zanthus
+#sudo smbpasswd -a zanthus
+
+# Diretório com usuário e senha:
+
+#sudo mkdir -p /srv/samba/secure_share
+#sudo chmod -R 0770 /srv/samba/secure_share
+#sudo chown -R root:secure_group /srv/samba/secure_share
+#sudo chcon -R -t samba_share_t /srv/samba/secure_share
+
+# smb.conf usuário:
+
+#echo -e '[secured]
+#path = /srv/samba/secure_share
+#valid users = @secure_group
+#guest ok = no
+#writable = yes
+#browsable = yes
+#' | sudo tee -a /etc/samba/smb.conf
+
+###
+
+# Usuário sambashare, modelo "usuário seguro"
+
+sudo adduser -M -r sambashare
+sudo mkdir -p /var/lib/samba/usershare
+sudo chown sambashare:sambashare /var/lib/samba/usershare
+sudo chmod 1770 /var/lib/samba/usershare
+sudo adduser -M -r zanthus
+sudo usermod -a -G sambashare zanthus
+grep sambashare /etc/group
+sudo smbpasswd -a zanthus
+
+# Diretório "Arquivos", grupo sambashare.
+# Usando modedo " [secured]", grupo secure_group:
+
+DOCKDIR='/opt/demonstracao'
+#DOCKDIR='/opt/docker'
+
+sudo mkdir -p "${DOCKDIR}"/disco_compartilhado/manager_arquivos
+sudo chmod -R 0777 "${DOCKDIR}"/disco_compartilhado
+sudo chown -R root:sambashare "${DOCKDIR}"/disco_compartilhado
+sudo chcon -R -t samba_share_t "${DOCKDIR}"/disco_compartilhado/manager_arquivos
+ls -ld "${DOCKDIR}"/disco_compartilhado
+ls -l "${DOCKDIR}"/disco_compartilhado/*
+
+# smb.conf "Arquivos":
+
+echo -e "[Arquivos]
+path = "${DOCKDIR}"/disco_compartilhado/manager_arquivos
+valid users = @sambashare
+guest ok = no
+writable = yes
+browsable = yes
+" | sudo tee -a /etc/samba/smb.conf
+
+# Diretório "Logs", grupo sambashare.
+# Usando modedo " [secured]":
+
+sudo mkdir -p "${DOCKDIR}"/manager_logs
+sudo chmod -R 0777 "${DOCKDIR}"/manager_logs
+sudo chown -R root:sambashare "${DOCKDIR}"/manager_logs
+sudo chcon -R -t samba_share_t "${DOCKDIR}"/manager_logs
+
+# smb.conf "Logs":
+
+echo -e "[Logs]
+path = "${DOCKDIR}"/manager_logs
+valid users = @sambashare
+guest ok = no
+writable = yes
+browsable = yes
+" | sudo tee -a /etc/samba/smb.conf
+
+# Diretório "manager_atupdv", grupo sambashare.
+# Usando modedo " [secured]":
+
+sudo mkdir -p "${DOCKDIR}"manager_atupdv
+sudo chmod -R 0777 "${DOCKDIR}"manager_atupdv
+sudo chown -R root:sambashare "${DOCKDIR}"manager_atupdv
+sudo chcon -R -t samba_share_t "${DOCKDIR}"manager_atupdv
+
+# smb.conf "Logs":
+
+echo -e "[AtuPDV]
+path = "${DOCKDIR}"manager_atupdv
+valid users = @sambashare
+guest ok = no
+writable = yes
+browsable = yes
+" | sudo tee -a /etc/samba/smb.conf
+
+# Serviço SAMBA
+
+sudo systemctl enable --now nmb smb
+
+# CronD
+
+echo -e '
+*/5   *  *  *  *  root chown -R root:sambashare /opt/docker/disco_compartilhado
+*/5   *  *  *  *  root chmod -R 777 /opt/docker/disco_compartilhado\n\n
+' | sudo tee -a /etc/crontab
+sudo systemctl restart crond
+
